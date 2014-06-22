@@ -103,6 +103,12 @@ namespace mc {
                 strout << "]";
                 return strout.str();
             }
+            
+            bool contains(const point<DIMENSION>& p) const {
+                //distance_type dx = 
+                // TODO #01: to implement main case
+                return true;
+            }
         };
 
         template<size_t DIMENSION>
@@ -157,6 +163,13 @@ namespace mc {
             tmp /= p.length();
             return tmp;
         }
+        
+        template<size_t DIMENSION>
+        distance_type norm(const vector<DIMENSION>& p){
+            distance_type result = 0.0;
+            size_t i = 0;
+        }
+        
     }
 }
 #endif	/* VECTOR_H */
