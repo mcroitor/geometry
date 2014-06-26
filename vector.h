@@ -82,7 +82,7 @@ namespace mc {
                 return tmp;
             }
 
-            distance_type length() const {
+            distance_type module() const {
                 size_t i = 0;
                 distance_type result = 0;
                 for (; i != DIMENSION; ++i) {
@@ -160,7 +160,7 @@ namespace mc {
         template<size_t DIMENSION>
         vector<DIMENSION> normalize(const vector<DIMENSION>& p) {
             vector<DIMENSION> tmp(p);
-            tmp /= p.length();
+            tmp /= p.module();
             return tmp;
         }
         
@@ -169,7 +169,16 @@ namespace mc {
             distance_type result = 0.0;
             size_t i = 0;
         }
-        
+
+        template<size_t DIMENSION>
+        distance_type operator *(const vector<DIMENSION>& p1, const vector<DIMENSION>& p2){
+            distance_type result = 0.0;
+            size_t i;
+            for(i = 0; i != DIMENSION; ++i){
+                result += p1[i]*p2[i];
+            }
+            return result;
+        }      
     }
 }
 #endif	/* VECTOR_H */
