@@ -44,6 +44,10 @@ namespace mc {
             double& x(const size_t& index) {
                 return coords[index];
             }
+            
+            const double& x(const size_t& index) const {
+                return coords[index];
+            }
 
             POINT_TYPE operator=(const POINT_TYPE& p) {
                 std::copy(p.coords, p.coords + _DIMENSION, coords);
@@ -81,6 +85,11 @@ namespace mc {
                     return false;
             }
             return true;
+        }
+        
+        template<class TYPE>
+        bool operator !=(const TYPE& p1, const TYPE& p2){
+            return !(p1 == p2);
         }
     }
 }
