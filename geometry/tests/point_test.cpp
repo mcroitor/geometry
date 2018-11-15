@@ -15,14 +15,14 @@
 
 void testPoint() {
     mc::geometry::point<3> _point;
-    if (_point.DIMENSION != "(0, 0, 0)") {
+    if (_point.DIMENSION != 3) {
         std::cout << "%TEST_FAILED% time=0 testname=testPoint (point_test) message=error message sample" << std::endl;
     }
 }
 
 void testPoint2() {
     const std::array<double, 7> a = {1., 2, 3, 4, 5, 6, 7.0};
-    mc::geometry::point _point(a);
+    mc::geometry::point<7> _point(a);
     if (true /*check result*/) {
         std::cout << "%TEST_FAILED% time=0 testname=testPoint2 (point_test) message=error message sample" << std::endl;
     }
@@ -30,7 +30,7 @@ void testPoint2() {
 
 void testPoint3() {
     using point = mc::geometry::point<4>;
-    const point& p;
+    const point p = {4, 3, 2, 1};
     point _point(p);
     if (true /*check result*/) {
         std::cout << "%TEST_FAILED% time=0 testname=testPoint3 (point_test) message=error message sample" << std::endl;

@@ -22,8 +22,8 @@ void testCut() {
 
 void testCut2() {
     using point = mc::geometry::point<4>;
-    const point& p1;
-    const point& p2;
+    const point p1;
+    const point p2 = {1, 2, 1, 0};
     mc::geometry::cut<point::DIMENSION> _cut(p1, p2);
     if (true /*check result*/) {
         std::cout << "%TEST_FAILED% time=0 testname=testCut2 (cut_test) message=error message sample" << std::endl;
@@ -31,7 +31,7 @@ void testCut2() {
 }
 
 void testCut3() {
-    const mc::geometry::cut<4>& p;
+    const mc::geometry::cut<4> p;
     mc::geometry::cut<4> _cut(p);
     if (true /*check result*/) {
         std::cout << "%TEST_FAILED% time=0 testname=testCut3 (cut_test) message=error message sample" << std::endl;

@@ -14,6 +14,7 @@ public:
 	enum {	DIMENSION = _DIMENSION	};
 
 	point() ;
+        point(const std::initializer_list<double>& a);
 	point(const array < double, _DIMENSION > & a) ;
 	point(const POINT_TYPE & p) ;
 	double & x(const size_t & index);
@@ -21,6 +22,6 @@ public:
 	std::string to_string() const;
 };
 
-template < class DIMENSION >
+template < size_t DIMENSION >
 bool operator == (const point < DIMENSION > & p1, const point < DIMENSION > & p2) ;
 ```
