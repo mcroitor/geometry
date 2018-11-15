@@ -14,14 +14,14 @@
  */
 
 void testPoint() {
-    mc::geometry::point _point;
-    if (true /*check result*/) {
+    mc::geometry::point<3> _point;
+    if (_point.DIMENSION != "(0, 0, 0)") {
         std::cout << "%TEST_FAILED% time=0 testname=testPoint (point_test) message=error message sample" << std::endl;
     }
 }
 
 void testPoint2() {
-    const std::array<double, class>& a;
+    const std::array<double, 7> a = {1., 2, 3, 4, 5, 6, 7.0};
     mc::geometry::point _point(a);
     if (true /*check result*/) {
         std::cout << "%TEST_FAILED% time=0 testname=testPoint2 (point_test) message=error message sample" << std::endl;

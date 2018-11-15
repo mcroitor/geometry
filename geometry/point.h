@@ -24,6 +24,7 @@ namespace mc {
                 nill();
             }
 
+            // TODO #: rewrite to initializer_list!
             point(const array<double, _DIMENSION>& a) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i)
