@@ -47,8 +47,8 @@ TESTFILES= \
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/docs/tests/newsimpletest.o \
 	${TESTDIR}/tests/cut_test.o \
+	${TESTDIR}/tests/newsimpletest.o \
 	${TESTDIR}/tests/point_test.o
 
 # C Compiler Flags
@@ -84,7 +84,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeometry.a: ${OBJECTFILES}
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
-${TESTDIR}/TestFiles/f3: ${TESTDIR}/docs/tests/newsimpletest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS}   
 
@@ -97,10 +97,10 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/point_test.o ${OBJECTFILES:%.o=%_nomai
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
 
 
-${TESTDIR}/docs/tests/newsimpletest.o: docs/tests/newsimpletest.cpp 
-	${MKDIR} -p ${TESTDIR}/docs/tests
+${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/docs/tests/newsimpletest.o docs/tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${TESTDIR}/tests/cut_test.o: tests/cut_test.cpp 
