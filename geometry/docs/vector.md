@@ -68,7 +68,5 @@ vector<DIMENSION> normalize(const vector<DIMENSION>& p);
 
 template<size_t DIMENSION>
 distance_type operator*(const vector<DIMENSION>& p1, const vector<DIMENSION>& p2);
-template < size_t DIMENSION >
-bool operator == (const point < DIMENSION > & p1, const point < DIMENSION > & p2);
 ```
 
