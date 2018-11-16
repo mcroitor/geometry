@@ -41,11 +41,13 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
+	${TESTDIR}/TestFiles/f3 \
 	${TESTDIR}/TestFiles/f1 \
 	${TESTDIR}/TestFiles/f2
 
 # Test Object Files
 TESTOBJECTFILES= \
+	${TESTDIR}/docs/tests/newsimpletest.o \
 	${TESTDIR}/tests/cut_test.o \
 	${TESTDIR}/tests/point_test.o
 
@@ -82,6 +84,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeometry.a: ${OBJECTFILES}
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
+${TESTDIR}/TestFiles/f3: ${TESTDIR}/docs/tests/newsimpletest.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS}   
+
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/cut_test.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
@@ -89,6 +95,12 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/cut_test.o ${OBJECTFILES:%.o=%_nomain.
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/point_test.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
+
+
+${TESTDIR}/docs/tests/newsimpletest.o: docs/tests/newsimpletest.cpp 
+	${MKDIR} -p ${TESTDIR}/docs/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/docs/tests/newsimpletest.o docs/tests/newsimpletest.cpp
 
 
 ${TESTDIR}/tests/cut_test.o: tests/cut_test.cpp 
@@ -107,6 +119,7 @@ ${TESTDIR}/tests/point_test.o: tests/point_test.cpp
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${TESTDIR}/TestFiles/f3 || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \
