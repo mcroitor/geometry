@@ -7,41 +7,50 @@
 
 namespace mc {
     namespace geometry {
-        enum POS_TYPE { MATCH, PARALLEL, INTERSECT};
+
+        enum POS_TYPE {
+            MATCH, PARALLEL, INTERSECT
+        };
 
         /*
          * lines
          */
 
-        template<size_t DIMENSION>
-        struct line {
-            point<DIMENSION> p;
-            vector<DIMENSION> a;
+        template<size_t _DIMENSION>
+        class line {
+            point<_DIMENSION> p;
+            vector<_DIMENSION> a;
+        public:
+            typedef mc::geometry::point<_DIMENSION> POINT_TYPE;
 
-            line(const point<DIMENSION>& p1, const point<DIMENSION>& p2) : p(p1), a(normalize(vector<DIMENSION>(p1, p2))) {
+            enum {
+                DIMENSION = _DIMENSION
+            };
+
+            line(const point<_DIMENSION>& p1, const point<_DIMENSION>& p2) : p(p1), a(normalize(vector<_DIMENSION>(p1, p2))) {
             }
 
-            line(const cut<DIMENSION>& c) : p(c.a), a(normalize(vector<DIMENSION>(c.a, c.b))) {
+            line(const cut<_DIMENSION>& c) : p(c.a), a(normalize(vector<_DIMENSION>(c.a, c.b))) {
             }
 
-            line(const line<DIMENSION>& l) : p(l.p), a(l.a) {
+            line(const line<_DIMENSION>& l) : p(l.p), a(l.a) {
             }
 
             ~line() {
             }
 
-            line<DIMENSION> operator=(const line<DIMENSION>& l) {
+            line<_DIMENSION> operator=(const line<_DIMENSION>& l) {
                 p = l.p;
                 a = l.a;
 
                 return *this;
             }
-            
+
             // #TODO: add to_string
         };
 
-        template<size_t DIMENSION>
-        POS_TYPE operator==(const line<DIMENSION>& l1, const line<DIMENSION>& l2) {
+        template<size_t _DIMENSION>
+        POS_TYPE operator==(const line<_DIMENSION>& l1, const line<_DIMENSION>& l2) {
             if (!(l1.a == l2.a) && !(l1.a == -l2.a)) {
                 return INTERSECT;
             }
