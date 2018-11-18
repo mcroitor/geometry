@@ -43,13 +43,15 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 TESTFILES= \
 	${TESTDIR}/TestFiles/f3 \
 	${TESTDIR}/TestFiles/f1 \
-	${TESTDIR}/TestFiles/f2
+	${TESTDIR}/TestFiles/f2 \
+	${TESTDIR}/TestFiles/f4
 
 # Test Object Files
 TESTOBJECTFILES= \
 	${TESTDIR}/tests/cut_test.o \
 	${TESTDIR}/tests/newsimpletest.o \
-	${TESTDIR}/tests/point_test.o
+	${TESTDIR}/tests/point_test.o \
+	${TESTDIR}/tests/vector_test.o
 
 # C Compiler Flags
 CFLAGS=
@@ -96,6 +98,10 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/point_test.o ${OBJECTFILES:%.o=%_nomai
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
 
+${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/vector_test.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS}   
+
 
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
@@ -115,6 +121,12 @@ ${TESTDIR}/tests/point_test.o: tests/point_test.cpp
 	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/point_test.o tests/point_test.cpp
 
 
+${TESTDIR}/tests/vector_test.o: tests/vector_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/vector_test.o tests/vector_test.cpp
+
+
 # Run Test Targets
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
@@ -122,6 +134,7 @@ ${TESTDIR}/tests/point_test.o: tests/point_test.cpp
 	    ${TESTDIR}/TestFiles/f3 || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
+	    ${TESTDIR}/TestFiles/f4 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

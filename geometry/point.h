@@ -2,14 +2,12 @@
 #define MC_POINT_H
 #include <algorithm>
 #include <string>
-#include <array>
 #include <sstream>
 #include <initializer_list>
+#include "utilities.h"
 
 namespace mc {
     namespace geometry {
-        template<size_t _DIMENSION>
-        using array = std::array<double, _DIMENSION>;
 
         template<size_t _DIMENSION>
         class point {
@@ -41,11 +39,11 @@ namespace mc {
                 std::copy(p.coords.begin(), p.coords.end(), coords.begin());
             }
 
-            double& x(const size_t& index) {
+            double& operator[](const size_t& index) {
                 return coords[index];
             }
-            
-            const double& x(const size_t& index) const {
+
+            const double& operator[](const size_t& index) const {
                 return coords[index];
             }
 
@@ -70,26 +68,18 @@ namespace mc {
 
         template<size_t DIMENSION>
         bool operator==(const point<DIMENSION>& p1, const point<DIMENSION>& p2) {
-            // TODO#: move to utilities
-            const double EPS = 0.000001;
-            auto abs = [] (double p) {
-                return (p > 0) ? p : -p;
-            };
-            auto dbl_compare = [&abs, &EPS] (double x, double y) {
-                return abs(x - y) < EPS;
-            };
-            // end #TODO
             size_t i;
             for (i = 0; i != DIMENSION; ++i) {
-                if (dbl_compare(p1.x(i), p2.x(i)) == false)
+                if (mc::dbl_compare(p1[i], p2[i]) == false)
                     return false;
             }
             return true;
         }
-        
-        template<class TYPE>
-        bool operator !=(const TYPE& p1, const TYPE& p2){
-            return !(p1 == p2);
+
+        template<size_t DIMENSION>
+        std::ostream& operator<<(std::ostream& out, const point<DIMENSION>& p) {
+            out << p.to_string();
+            return out;
         }
     }
 }

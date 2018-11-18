@@ -21,19 +21,24 @@ void testCut() {
 }
 
 void testCut2() {
-    using point = mc::geometry::point<4>;
+    using namespace mc::geometry;
+    using point = point<4>;
+    using cut = cut<point::DIMENSION>;
     const point p1;
     const point p2 = {1, 2, 1, 0};
-    mc::geometry::cut<point::DIMENSION> _cut(p1, p2);
+    cut _cut(p1, p2);
     if (_cut.a != point() && _cut.b != point()) {
         std::cout << "%TEST_FAILED% time=0 testname=testCut2 (cut_test) message=error message sample" << std::endl;
     }
 }
 
 void testCut3() {
-    const mc::geometry::cut<4> p = {{0, 1, 2, 3}, {4, 3, 2, 1}};
-    mc::geometry::cut<4> _cut(p);
-    if (_cut.a != mc::geometry::point<4>({0, 1, 2, 3})) {
+    using namespace mc::geometry;
+    using point = point<4>;
+    using cut = cut<point::DIMENSION>;
+    const cut p = {{0, 1, 2, 3}, {4, 3, 2, 1}};
+    cut _cut(p);
+    if (_cut.a != point({0, 1, 2, 3})) {
         std::cout << "%TEST_FAILED% time=0 testname=testCut3 (cut_test) message=error message sample" << std::endl;
     }
 }

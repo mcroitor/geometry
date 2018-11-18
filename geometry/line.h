@@ -67,9 +67,9 @@ namespace mc {
                 return INTERSECT;
             }
             if ((l1.a() || l2.a()) && l1.contains(l2.p())) {
-                return PARALLEL;
+                return MATCH;
             }
-            return MATCH;
+            return PARALLEL;
         }
     }
 }

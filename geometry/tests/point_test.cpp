@@ -24,7 +24,7 @@ void testPoint2() {
     const std::array<double, 7> a = {1., 2, 3, 4, 5, 6, 7.0};
     mc::geometry::point<7> _point(a);
     for (size_t i = 0; i != _point.DIMENSION; ++i) {
-        if (_point.x(i) != a[i]) {
+        if (_point[i] != a[i]) {
             std::cout << "%TEST_FAILED% time=0 testname=testPoint2 (point_test) message=error message sample" << std::endl;
         }
     }
@@ -34,7 +34,7 @@ void testPoint3() {
     using point = mc::geometry::point<4>;
     const point p = {4, 3, 2, 1};
     point _point(p);
-    if (_point.x(2) != 2) {
+    if (_point[2] != 2) {
         std::cout << "%TEST_FAILED% time=0 testname=testPoint3 (point_test) message=error message sample" << std::endl;
     }
 }
@@ -43,7 +43,7 @@ void testX() {
     using point = mc::geometry::point<4>;
     const size_t& index = 2;
     point _point = {1, 0, -1, 1};
-    double& result = _point.x(index);
+    double& result = _point[index];
     if (result != -1) {
         std::cout << "%TEST_FAILED% time=0 testname=testX (point_test) message=error message sample" << std::endl;
     }

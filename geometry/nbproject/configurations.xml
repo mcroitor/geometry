@@ -11,6 +11,7 @@
       <itemPath>cut.h</itemPath>
       <itemPath>line.h</itemPath>
       <itemPath>point.h</itemPath>
+      <itemPath>utilities.h</itemPath>
       <itemPath>vector.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -39,6 +40,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/point_test.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4"
+                     displayName="vector_test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/vector_test.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -115,6 +122,21 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f4">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f4</output>
+        </linkerTool>
+      </folder>
       <item path="line.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="point.h" ex="false" tool="3" flavor2="0">
@@ -126,6 +148,10 @@
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/point_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/vector_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utilities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="vector.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -203,6 +229,21 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f4">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f4</output>
+        </linkerTool>
+      </folder>
       <item path="line.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="point.h" ex="false" tool="3" flavor2="0">
@@ -214,6 +255,10 @@
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/point_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/vector_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utilities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="vector.h" ex="false" tool="3" flavor2="0">
       </item>

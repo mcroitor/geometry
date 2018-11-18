@@ -1,18 +1,15 @@
 #ifndef MC_VECTOR_H
 #define MC_VECTOR_H
 
+
+#include <utility>
 #include <algorithm>
-#include <array>
 
+#include "utilities.h"
 #include "point.h"
-
 
 namespace mc {
     namespace geometry {
-        template<size_t _DIMENSION>
-        using array = std::array<double, _DIMENSION>;
-        
-        typedef double distance_type;
 
         template<size_t _DIMENSION>
         class vector {
@@ -35,7 +32,7 @@ namespace mc {
             vector(const point<_DIMENSION>& start, const point<_DIMENSION>& end) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
-                    x[i] = end.x(i) - start.x(i);
+                    x[i] = end[i] - start[i];
                 }
             }
 
@@ -126,6 +123,12 @@ namespace mc {
             return p1.equal(p2);
         }
 
+        /**
+         * check if vectors are collinear.
+         * @param p1
+         * @param p2
+         * @return 
+         */
         template<size_t DIMENSION>
         bool operator||(const vector<DIMENSION>& p1, const vector<DIMENSION>& p2) {
             vector<DIMENSION> tmp1 = normalize(p1);
@@ -174,6 +177,11 @@ namespace mc {
             return out;
         }
 
+        /**
+         * normalize vector. normalized vector has length 1.
+         * @param p
+         * @return 
+         */
         template<size_t DIMENSION>
         vector<DIMENSION> normalize(const vector<DIMENSION>& p) {
             vector<DIMENSION> tmp(p);
@@ -181,6 +189,12 @@ namespace mc {
             return tmp;
         }
 
+        /**
+         * scalar product of 2 vectors
+         * @param p1
+         * @param p2
+         * @return 
+         */
         template<size_t DIMENSION>
         distance_type operator*(const vector<DIMENSION>& p1, const vector<DIMENSION>& p2) {
             distance_type result = 0.0;
