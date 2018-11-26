@@ -60,6 +60,33 @@ void testNormalize() {
     }
 }
 
+void testArithmetic() {
+    using vector = mc::geometry::vector<4>;
+    const vector v1 = {0, 0, -1, 0};
+    const vector v2 = {1, 1, 1, 1};
+
+    vector result = v1 + v2;
+    if (result != vector({1, 1, 0, 1})) {
+        std::cout << "%TEST_FAILED% time=0 testname=testArithmetic (vector_test) message=error message sample" << std::endl;
+        std::cout << "vector = " << result << std::endl;
+    }
+}
+
+void testMove() {
+    using vector = mc::geometry::vector<4>;
+    using point = vector::point_type;
+    const point p = {1, 2, -1, 0};
+    const vector v = {1, 1, 1, 1};
+
+    point result = mc::geometry::move(p, v);
+    if (result != point({2, 3, 0, 1})) {
+        std::cout << "%TEST_FAILED% time=0 testname=testMove (vector_test) message=error message sample" << std::endl;
+        std::cout << "start point = " << p << std::endl;
+        std::cout << "vector = " << v << std::endl;
+        std::cout << "end point = " << result << std::endl;
+    }
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% vector_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -83,6 +110,14 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testNormalize (vector_test)" << std::endl;
     testNormalize();
     std::cout << "%TEST_FINISHED% time=0 testNormalize (vector_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testArithmetic (vector_test)" << std::endl;
+    testArithmetic();
+    std::cout << "%TEST_FINISHED% time=0 testArithmetic (vector_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testMove (vector_test)" << std::endl;
+    testMove();
+    std::cout << "%TEST_FINISHED% time=0 testMove (vector_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

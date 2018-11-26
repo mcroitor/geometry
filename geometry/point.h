@@ -17,7 +17,7 @@ namespace mc {
                 std::fill(coords.begin(), coords.end(), 0);
             }
         public:
-            typedef mc::geometry::point<_DIMENSION> POINT_TYPE;
+            typedef mc::geometry::point<_DIMENSION> point_type;
 
             enum {
                 DIMENSION = _DIMENSION
@@ -35,7 +35,7 @@ namespace mc {
                 std::copy(a.begin(), a.end(), coords.begin());
             }
 
-            point(const POINT_TYPE& p) {
+            point(const point_type& p) {
                 std::copy(p.coords.begin(), p.coords.end(), coords.begin());
             }
 
@@ -47,7 +47,7 @@ namespace mc {
                 return coords[index];
             }
 
-            POINT_TYPE operator=(const POINT_TYPE& p) {
+            point_type operator=(const point_type& p) {
                 std::copy(p.coords, p.coords + _DIMENSION, coords);
                 return *this;
             }

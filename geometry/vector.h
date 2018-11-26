@@ -19,7 +19,8 @@ namespace mc {
                 std::fill(x.begin(), x.end(), 0.);
             }
         public:
-            typedef mc::geometry::vector<_DIMENSION> VECTOR_TYPE;
+            typedef mc::geometry::vector<_DIMENSION> vector_type;
+            typedef mc::geometry::point<_DIMENSION> point_type;
 
             enum {
                 DIMENSION = _DIMENSION
@@ -29,7 +30,7 @@ namespace mc {
                 nill();
             }
 
-            vector(const point<_DIMENSION>& start, const point<_DIMENSION>& end) {
+            vector(const point_type& start, const point_type& end) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
                     x[i] = end[i] - start[i];
@@ -44,11 +45,11 @@ namespace mc {
                 std::copy(a.begin(), a.end(), x.begin());
             }
 
-            vector(const vector<_DIMENSION>& p) {
+            vector(const vector_type& p) {
                 std::copy(p.x.begin(), p.x.end(), x.begin());
             }
 
-            vector<_DIMENSION>& operator=(const vector<_DIMENSION>& p) {
+            vector_type& operator=(const vector_type& p) {
                 std::copy(p.x.begin(), p.x.end(), x.begin());
                 return *this;
             }
@@ -56,15 +57,19 @@ namespace mc {
             double& operator[](const size_t& index) {
                 return x[index];
             }
+            
+            const double& operator[](const size_t& index) const {
+                return x[index];
+            }
 
-            void operator+=(const vector<_DIMENSION>& p) {
+            void operator+=(const vector_type& p) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
                     x[i] += p.x[i];
                 }
             }
 
-            void operator-=(const vector<_DIMENSION>& p) {
+            void operator-=(const vector_type& p) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
                     x[i] -= p.x[i];
@@ -113,7 +118,7 @@ namespace mc {
                 return strout.str();
             }
 
-            bool equal(const vector<_DIMENSION>& p) const {
+            bool equal(const vector_type& p) const {
                 return std::equal(x.begin(), x.end(), p.x.begin());
             }
         };
@@ -203,6 +208,22 @@ namespace mc {
                 result += p1[i] * p2[i];
             }
             return result;
+        }
+        
+        /**
+         * Move a point on direction specified by vector
+         * @param p
+         * @param v
+         * @return new point
+         */
+        template<size_t DIMENSION>
+        point<DIMENSION> move(const point<DIMENSION>& p, const vector<DIMENSION>& v){
+            point<DIMENSION> tmp = p;
+            size_t index;
+            for(index = 0; index != DIMENSION; ++index){
+                tmp[index] += v[index];
+            }
+            return tmp;
         }
     }
 }
