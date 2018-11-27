@@ -13,10 +13,10 @@ namespace mc {
 
         template<size_t _DIMENSION>
         class vector {
-            array<_DIMENSION> x;
+            array<_DIMENSION> coords;
 
             void nill() {
-                std::fill(x.begin(), x.end(), 0.);
+                std::fill(coords.begin(), coords.end(), 0.);
             }
         public:
             typedef mc::geometry::vector<_DIMENSION> vector_type;
@@ -33,60 +33,60 @@ namespace mc {
             vector(const point_type& start, const point_type& end) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
-                    x[i] = end[i] - start[i];
+                    coords[i] = end[i] - start[i];
                 }
             }
 
             vector(const array<_DIMENSION>& a) {
-                std::copy(a.begin(), a.end(), x.begin());
+                std::copy(a.begin(), a.end(), coords.begin());
             }
 
             vector(const std::initializer_list<double>& a) {
-                std::copy(a.begin(), a.end(), x.begin());
+                std::copy(a.begin(), a.end(), coords.begin());
             }
 
             vector(const vector_type& p) {
-                std::copy(p.x.begin(), p.x.end(), x.begin());
+                std::copy(p.coords.begin(), p.coords.end(), coords.begin());
             }
 
             vector_type& operator=(const vector_type& p) {
-                std::copy(p.x.begin(), p.x.end(), x.begin());
+                std::copy(p.coords.begin(), p.coords.end(), coords.begin());
                 return *this;
             }
 
             double& operator[](const size_t& index) {
-                return x[index];
+                return coords[index];
             }
             
             const double& operator[](const size_t& index) const {
-                return x[index];
+                return coords[index];
             }
 
             void operator+=(const vector_type& p) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
-                    x[i] += p.x[i];
+                    coords[i] += p.coords[i];
                 }
             }
 
             void operator-=(const vector_type& p) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
-                    x[i] -= p.x[i];
+                    coords[i] -= p.coords[i];
                 }
             }
 
             void operator*=(const double& p) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
-                    x[i] *= p;
+                    coords[i] *= p;
                 }
             }
 
             void operator/=(const double& p) {
                 size_t i = 0;
                 for (; i != _DIMENSION; ++i) {
-                    x[i] /= p;
+                    coords[i] /= p;
                 }
             }
 
@@ -100,26 +100,26 @@ namespace mc {
                 size_t i = 0;
                 distance_type result = 0;
                 for (; i != _DIMENSION; ++i) {
-                    result += x[i] * x[i];
+                    result += coords[i] * coords[i];
                 }
                 return std::sqrt(result);
             }
 
             std::string to_string() const {
                 std::ostringstream strout;
-                strout << "[";
-                typename array<_DIMENSION>::const_iterator i = x.begin();
-                while (i != x.end()) {
+                strout << "<";
+                typename array<_DIMENSION>::const_iterator i = coords.begin();
+                while (i != coords.end()) {
                     strout << (*i);
                     ++i;
-                    if (i != x.end()) strout << ", ";
+                    if (i != coords.end()) strout << ", ";
                 }
-                strout << "]";
+                strout << ">";
                 return strout.str();
             }
 
             bool equal(const vector_type& p) const {
-                return std::equal(x.begin(), x.end(), p.x.begin());
+                return std::equal(coords.begin(), coords.end(), p.coords.begin());
             }
         };
 

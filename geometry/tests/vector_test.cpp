@@ -33,7 +33,7 @@ void testModule() {
 void testTo_string() {
     mc::geometry::vector<4> _vector = {1, 0, -1, 1};
     std::string result = _vector.to_string();
-    if (result != "[1, 0, -1, 1]") {
+    if (result != "<1, 0, -1, 1>") {
         std::cout << "%TEST_FAILED% time=0 testname=testTo_string (vector_test) message=error message sample" << std::endl;
         std::cout << "vector = " << result << std::endl;
     }

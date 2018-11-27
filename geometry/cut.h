@@ -12,7 +12,7 @@ namespace mc {
          */
         template<size_t _DIMENSION>
         class cut {
-            point<_DIMENSION> _a, _b;
+            point<_DIMENSION> point_a, point_b;
         public:
 
             enum {
@@ -21,32 +21,32 @@ namespace mc {
             typedef point<_DIMENSION> point_type;
             typedef cut<_DIMENSION> cut_type;
 
-            cut() : _a(point_type()), _b(point_type()) {
+            cut() : point_a(point_type()), point_b(point_type()) {
             }
 
-            cut(const point_type& p1, const point_type& p2) : _a(p1), _b(p2) {
+            cut(const point_type& p1, const point_type& p2) : point_a(p1), point_b(p2) {
             }
 
-            cut(const cut_type& p) : _a(p.a()), _b(p.b()) {
+            cut(const cut_type& p) : point_a(p.a()), point_b(p.b()) {
             }
 
             cut operator=(const cut_type& p) {
-                _a = p.a();
-                _b = p.b();
+                point_a = p.a();
+                point_b = p.b();
                 return *this;
             }
 
             point_type a() const {
-                return _a;
+                return point_a;
             }
 
             point_type b() const {
-                return _b;
+                return point_b;
             }
 
             std::string to_string() const {
                 std::ostringstream strout;
-                strout << "<" << this->a() << ", " << this->b() << ">";
+                strout << "[" << this->a() << ", " << this->b() << "]";
                 return strout.str();
             }
             

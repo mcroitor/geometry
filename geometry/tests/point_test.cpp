@@ -53,7 +53,7 @@ void testToString() {
     using point = mc::geometry::point<4>;
     point _point;
     std::string result = _point.to_string();
-    if (result != "(0, 0, 0, 0)") {
+    if (result != "{0, 0, 0, 0}") {
         std::cout << "%TEST_FAILED% time=0 testname=testToString (point_test) message=error message sample" << std::endl;
     }
 }

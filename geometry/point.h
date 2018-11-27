@@ -54,14 +54,14 @@ namespace mc {
 
             std::string to_string() const {
                 std::ostringstream strout;
-                strout << "(";
+                strout << "{";
                 typename array<_DIMENSION>::const_iterator i = coords.begin();
                 while (i != coords.end()) {
                     strout << (*i);
                     ++i;
                     if (i != coords.end()) strout << ", ";
                 }
-                strout << ")";
+                strout << "}";
                 return strout.str();
             }
         };
