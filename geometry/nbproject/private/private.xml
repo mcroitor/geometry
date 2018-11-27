@@ -8,10 +8,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/vector.h</file>
-            <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/utilities.h</file>
-            <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/tests/cut_test.cpp</file>
-            <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/cut.h</file>
-            <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/tests/vector_test.cpp</file>
+            <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/tests/newsimpletest.cpp</file>
+            <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/line.h</file>
             <file>file:/D:/Documents/NetBeansProjects/mclib/geometry/geometry/point.h</file>
         </group>
     </open-files>

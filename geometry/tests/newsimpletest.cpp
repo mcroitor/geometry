@@ -126,3 +126,20 @@ TEST_CASE("lines can be created", "[line]") {
         REQUIRE(A_B_0.to_string() == "<r> = <-1, 0, 0> + t * <-0.707107, 0, 0.707107>");
     }
 }
+
+TEST_CASE("intersection of lines", "[line]") {
+    const size_t SIZE = 2;
+    using point = mc::geometry::point<SIZE>;
+    using vector = mc::geometry::vector<SIZE>;
+    using line = mc::geometry::line<SIZE>;
+    
+    point O = {0, 0};
+    point A = {1, 1};
+    point B = {2, 0};
+    
+    line OA = {O, A};
+    line AB = {A, B};
+    
+    point TestPoint = mc::geometry::intersection(OA, AB);
+    REQUIRE(TestPoint == A);
+}

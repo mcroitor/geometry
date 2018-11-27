@@ -34,7 +34,7 @@ namespace mc {
 
             line(const point_type& p, const vector_type& v) : point_(p), vector_(normalize(v)) {
             }
-            
+
             line(const cut<_DIMENSION>& c) : point_(c.a), vector_(normalize(vector_type(c.a, c.b))) {
             }
 
@@ -64,7 +64,7 @@ namespace mc {
             }
 
             bool contains(const point_type& p) const {
-                if(p == point_){
+                if (p == point_) {
                     return true;
                 }
                 vector_type v(point_, p);
@@ -81,6 +81,20 @@ namespace mc {
                 strout << "<r> = " << this->position_vector() << " + t * " << this->direction_vector();
                 return strout.str();
             }
+
+            const bool match(const line_type& l) const {
+                return (direction_vector() || l.direction_vector()) &&
+                        (contains(l.point()));
+            }
+
+            const bool parallel(const line_type& l) const {
+                return direction_vector() || l.direction_vector() &&
+                        !(contains(l.point()));
+            }
+
+            const bool intersect(const line_type& l) const {
+                return !(direction_vector() || l.direction_vector());
+            }
         };
 
         /**
@@ -91,13 +105,44 @@ namespace mc {
          */
         template<size_t _DIMENSION>
         POS_TYPE operator==(const line<_DIMENSION>& l1, const line<_DIMENSION>& l2) {
-            if (!(l1.direction_vector() || l2.direction_vector())) {
+            if (l1.intersect(l2) == true) {
                 return INTERSECT;
             }
-            if ((l1.direction_vector() || l2.direction_vector()) && l1.contains(l2.point())) {
+            if (l1.match(l2) == true) {
                 return MATCH;
             }
             return PARALLEL;
+        }
+
+        template<size_t _DIMENSION>
+        point<_DIMENSION> intersection(const line<_DIMENSION>& l1, const line<_DIMENSION>& l2) {
+            if (l1.intersect(l2) == false) {
+                throw std::domain_error("lines does not intersects!");
+            }
+            // 1)   P[1] = L1.P[1] + t1 * L1.V[1], P[1] = L2.P[1] + t2 * L2.V[1]
+            //      P[N] = L1.P[N] + t1 * L1.V[N], P[N] = L2.P[N] + t2 * L2.V[N]
+            // 2)   t1 * L1.V[1] - t2 * L2.V[1] = L2.P[1] - L1.P[1]
+            //      t1 * L1.V[N] - t2 * L2.V[N] = L2.P[N] - L1.P[N]
+            // 3)   t1 * L1.V[1] * L2.V[N] - t2 * L2.V[1] * L2.V[N] = (L2.P[1] - L1.P[1]) * L2.V[N]
+            //      t1 * L1.V[N] * L2.V[1] - t2 * L2.V[N] * L2.V[1] = (L2.P[N] - L1.P[N]) * L2.V[1]
+            // 4)   t1 * L1.V[1] * L2.V[N] - t1 * L1.V[N] * L2.V[1] = (L2.P[1] - L1.P[1]) * L2.V[N] 
+            //                                                      - (L2.P[N] - L1.P[N]) * L2.V[1]
+            //      U = L1.V[1] * L2.V[N] - L1.V[N] * L2.V[1]
+            //      W = (L2.P[1] - L1.P[1]) * L2.V[N] - (L2.P[N] - L1.P[N]) * L2.V[1]
+            //      t1 = W / U
+            const vector<_DIMENSION>& v1 = l1.direction_vector();
+            const vector<_DIMENSION>& v2 = l2.direction_vector();
+
+            const point<_DIMENSION>& p1 = l1.point();
+            const point<_DIMENSION>& p2 = l2.point();
+            mc::distance_type U = v1[0] * v2[_DIMENSION - 1] - v1[_DIMENSION - 1] * v2[0];
+            if (mc::dbl_compare(0, U) == true) {
+                throw std::logic_error("division by 0");
+            }
+            mc::distance_type W = (p2[0] - p1[0]) * v2[_DIMENSION - 1] -
+                    (p2[_DIMENSION - 1] - p1[_DIMENSION - 1]) * v2[0];
+            vector<_DIMENSION> v = v1 * W / U + l1.position_vector();
+            return move(point<_DIMENSION>(), v);
         }
     }
 }
