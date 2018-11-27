@@ -28,6 +28,7 @@ TEST_CASE("vectors as geometric objects", "[vector]") {
     vector<5> vector1(point1, point2);
     vector<5> _vector = {4, 2, 0, -2, -4};
     vector<5> vector2 = {2, 1, 0, -1, -2};
+    vector<5> vector3 = {2, 1, 0, -1, -1};
 
     SECTION("check space dimension") {
         REQUIRE(vector1.DIMENSION == 5);
@@ -43,11 +44,13 @@ TEST_CASE("vectors as geometric objects", "[vector]") {
 
     SECTION("compare vectors") {
         REQUIRE(vector1 == _vector);
+        REQUIRE(vector3 != _vector);
         // TODO# : interesting property of require
         REQUIRE((vector1 != vector2));
 
         SECTION("collinear vectors") {
-            REQUIRE((vector1 || vector2));
+            REQUIRE((vector1 || vector2) == true);
+            REQUIRE((vector1 || vector3) == false);
         }
     }
 }
@@ -94,20 +97,32 @@ TEST_CASE("lines can be created", "[line]") {
     }
 
     SECTION("check if line contains point") {
+        std::cout << "line0 = " << A_B_0.to_string() << ", point_line_1 = " << A_B_1.point() << std::endl;
+        std::cout << "line0 = " << A_B_0.to_string() << ", point_line_2 = " << A_B_2.point() << std::endl;
         REQUIRE(A_B_0.contains(A_B_1.point()) == true);
         REQUIRE(A_B_0.contains(A_B_2.point()) == false);
     }
-
-    std::cout << "line0 = " << A_B_0.to_string() << std::endl;
-    std::cout << "line1 = " << A_B_1.to_string() << std::endl;
-    std::cout << "line2 = " << A_B_2.to_string() << std::endl;
+    
+    SECTION("check if line contains point") {
+        vector v0 = A_B_0.direction_vector();
+        vector v1 = A_B_1.direction_vector();
+        vector v2 = A_B_2.direction_vector();
+        std::cout << "vector_line_0 = " << v0.to_string() << std::endl;
+        std::cout << "vector_line_1 = " << v1.to_string() << std::endl;
+        std::cout << "vector_line_2 = " << v2.to_string() << std::endl;
+        REQUIRE((v0 || v1) == true);
+        REQUIRE((v0 || v2) == true);
+    }    
 
     SECTION("check line positioning") {
+        std::cout << "line0 = " << A_B_0.to_string() << std::endl;
+        std::cout << "line1 = " << A_B_1.to_string() << std::endl;
+        std::cout << "line2 = " << A_B_2.to_string() << std::endl;
         REQUIRE((A_B_0 == A_B_1) == mc::geometry::MATCH);
         REQUIRE((A_B_0 == A_B_2) == mc::geometry::PARALLEL);
     }
 
     SECTION("line to_string") {
-        REQUIRE(A_B_0.to_string() == "<r> = <-1, 0, 0> + t * <-1, 0, 1>");
+        REQUIRE(A_B_0.to_string() == "<r> = <-1, 0, 0> + t * <-0.707107, 0, 0.707107>");
     }
 }

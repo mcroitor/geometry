@@ -119,7 +119,7 @@ namespace mc {
             }
 
             bool equal(const vector_type& p) const {
-                return std::equal(coords.begin(), coords.end(), p.coords.begin());
+                return std::equal(coords.begin(), coords.end(), p.coords.begin(), dbl_compare);
             }
         };
 

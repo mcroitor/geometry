@@ -64,6 +64,9 @@ namespace mc {
             }
 
             bool contains(const point_type& p) const {
+                if(p == point_){
+                    return true;
+                }
                 vector_type v(point_, p);
                 return v || vector_;
             }

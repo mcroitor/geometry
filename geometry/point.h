@@ -51,6 +51,10 @@ namespace mc {
                 std::copy(p.coords, p.coords + _DIMENSION, coords);
                 return *this;
             }
+            
+            bool equals(const point_type& p) const{
+                return std::equal(coords.begin(), coords.end(), p.coords.begin(), mc::dbl_compare);
+            }
 
             std::string to_string() const {
                 std::ostringstream strout;
@@ -68,12 +72,7 @@ namespace mc {
 
         template<size_t DIMENSION>
         bool operator==(const point<DIMENSION>& p1, const point<DIMENSION>& p2) {
-            size_t i;
-            for (i = 0; i != DIMENSION; ++i) {
-                if (mc::dbl_compare(p1[i], p2[i]) == false)
-                    return false;
-            }
-            return true;
+            return p1.equals(p2);
         }
 
         template<size_t DIMENSION>
