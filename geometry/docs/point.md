@@ -23,11 +23,15 @@ public:
         point(const std::initializer_list<double>& a);
 	point(const array < double, _DIMENSION > & a) ;
 	point(const POINT_TYPE & p) ;
-	double & x(const size_t & index);
+	double& operator[](const size_t& index);
+	const double& operator[](const size_t& index) const;
 	POINT_TYPE operator = (const POINT_TYPE & p) ;
+        bool equals(const point_type& p) constș
 	std::string to_string() const;
 };
 
 template < size_t DIMENSION >
 bool operator == (const point < DIMENSION > & p1, const point < DIMENSION > & p2) ;
+template<size_t DIMENSION>
+std::ostream& operator<<(std::ostream& out, const point<DIMENSION>& p);
 ```
