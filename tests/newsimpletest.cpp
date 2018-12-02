@@ -102,7 +102,7 @@ TEST_CASE("lines can be created", "[line]") {
         REQUIRE(A_B_0.contains(A_B_1.point()) == true);
         REQUIRE(A_B_0.contains(A_B_2.point()) == false);
     }
-    
+
     SECTION("check if line contains point") {
         vector v0 = A_B_0.direction_vector();
         vector v1 = A_B_1.direction_vector();
@@ -112,7 +112,7 @@ TEST_CASE("lines can be created", "[line]") {
         std::cout << "vector_line_2 = " << v2.to_string() << std::endl;
         REQUIRE((v0 || v1) == true);
         REQUIRE((v0 || v2) == true);
-    }    
+    }
 
     SECTION("check line positioning") {
         std::cout << "line0 = " << A_B_0.to_string() << std::endl;
@@ -132,14 +132,38 @@ TEST_CASE("intersection of lines", "[line]") {
     using point = mc::geometry::point<SIZE>;
     using vector = mc::geometry::vector<SIZE>;
     using line = mc::geometry::line<SIZE>;
-    
+
     point O = {0, 0};
     point A = {1, 1};
     point B = {2, 0};
-    
+
     line OA = {O, A};
     line AB = {A, B};
-    
+
     point TestPoint = mc::geometry::intersection(OA, AB);
     REQUIRE(TestPoint == A);
+}
+
+SCENARIO("verify point moves as expected", "[vector]") {
+
+    GIVEN("in 2 dimensional space point is set on (1, 2)") {
+        using point = mc::geometry::point<2>;
+        point O = {1, 2};
+        REQUIRE(O[0] == 1);
+        REQUIRE(O[1] == 2);
+
+        WHEN("point is moved with {2, -4} vector") {
+            using vector = mc::geometry::vector<2>;
+            vector v = {2, -4};
+
+            REQUIRE(v[0] == 2);
+            REQUIRE(v[1] == -4);
+            point O1 = mc::geometry::move(O, v);
+
+            THEN("verify point is now at (3, -2)") {
+                REQUIRE(O1[0] == 3);
+                REQUIRE(O1[1] == -2);
+            }
+        }
+    }
 }
