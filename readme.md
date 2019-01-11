@@ -6,3 +6,5 @@ in N-dimensional space. All primitives is defined in mc::geometry namespace.
 * [point class description](https://github.com/mcroitor/geometry/docs/point.md)
 * [vector class description](https://github.com/mcroitor/geometry/docs/vector.md)
 * [line class description](https://github.com/mcroitor/geometry/docs/line.md)
+
+It is very specific library, will be rewritten using linear spaces.
