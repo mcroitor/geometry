@@ -57,7 +57,7 @@ namespace mc {
             double& operator[](const size_t& index) {
                 return coords[index];
             }
-            
+
             const double& operator[](const size_t& index) const {
                 return coords[index];
             }
@@ -209,7 +209,7 @@ namespace mc {
             }
             return result;
         }
-        
+
         /**
          * Move a point on direction specified by vector
          * @param p
@@ -217,10 +217,10 @@ namespace mc {
          * @return new point
          */
         template<size_t DIMENSION>
-        point<DIMENSION> move(const point<DIMENSION>& p, const vector<DIMENSION>& v){
+        point<DIMENSION> move(const point<DIMENSION>& p, const vector<DIMENSION>& v) {
             point<DIMENSION> tmp = p;
             size_t index;
-            for(index = 0; index != DIMENSION; ++index){
+            for (index = 0; index != DIMENSION; ++index) {
                 tmp[index] += v[index];
             }
             return tmp;
