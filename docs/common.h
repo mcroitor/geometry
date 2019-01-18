@@ -8,6 +8,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <array>
+
+
 namespace mc {
     namespace space {
         namespace abstract {
@@ -21,44 +24,56 @@ namespace mc {
             template<typename TYPE, size_t SIZE>
             struct element : public abstract::element {
                 typedef TYPE scalar_type;
+                using element_type = element<TYPE, SIZE>;
+                
+                element(std::initializer_list<element_type>& _scalars): std::copy(_scalars.begin(), _scalars.end(), scalars.begin()){
+                    
+                }
 
-                virtual element<TYPE, SIZE> operator=(const element<TYPE, SIZE>& param) {
+                virtual element_type operator=(const element_type& param) {
                     std::copy(param.scalars, param.scalars + SIZE, scalars);
                     return *this;
                 }
 
-                virtual bool operator==(const element<TYPE, SIZE>& param) const {
+                virtual bool operator==(const element_type& param) const {
                     return std::equal(param.scalars, param.scalars + SIZE, scalars);
                 }
                 
                 size_t dimension() const {
                     return SIZE;
                 }
+                TYPE scalar(size_t index) const{
+                    return scalars[index];
+                }
+                TYPE operator [] (size_t index) const {
+                    return scalar(index);
+                }
 
-                virtual element<TYPE, SIZE> operator+=(const element<TYPE, SIZE>&) = 0;
-                virtual element<TYPE, SIZE> operator*=(const TYPE&) = 0;
-                virtual element<TYPE, SIZE> operator-(int) const = 0;
+                virtual element_type operator+=(const element_type&) = 0;
+                virtual element_type operator*=(const TYPE&) = 0;
+                virtual element_type operator-(int) const = 0;
+                
             protected:
-                TYPE scalars[SIZE];
+                std::array<TYPE, SIZE> scalars;
             };
 
-            template<typename TYPE>
-            element<TYPE> operator+(const element<TYPE>& left, const element<TYPE>& right) {
-                element<TYPE> tmp = left;
+            template<typename TYPE, size_t SIZE>
+            element<TYPE, SIZE> operator+(const element<TYPE, SIZE>& left, const element<TYPE, SIZE>& right) {
+                element<TYPE, SIZE> tmp = left;
                 left += right;
                 return left;
             }
 
-            template<typename TYPE>
-            element<TYPE> operator*(const element<TYPE>& left, TYPE right) {
-                element<TYPE> tmp = left;
+            template<typename TYPE, size_t SIZE>
+            element<TYPE, SIZE> operator*(const element<TYPE, SIZE>& left, TYPE right) {
+                element<TYPE, SIZE> tmp = left;
                 left *= right;
                 return left;
             }
 
-            template<typename TYPE>
-            element<TYPE> operator*(TYPE left, const element<TYPE>& right) {
-                element<TYPE> tmp = right;
+            template<typename TYPE, size_t SIZE>
+            element<TYPE, SIZE> operator*(TYPE left, const element<TYPE, SIZE>& right) {
+                element<TYPE, SIZE> tmp = right;
                 right *= left;
                 return right;
             }
@@ -73,6 +88,23 @@ namespace mc {
              * 6) a * (A + B) = a * A + a * B
              * 7) (a + b) * A = a * A + b * A
              */
+            
+            template<typename TYPE, size_t SIZE>
+            std::array<element<TYPE, SIZE>, SIZE> basis();
+            
+            template<size_t SIZE>
+            std::array<element<int, SIZE>, SIZE> basis<int, SIZE>(){
+                std::array<element<int, SIZE>, SIZE> _basis;
+// TODO #: implement this!
+                return _basis;
+            }
+            
+            template<size_t SIZE>
+            std::array<element<double, SIZE>, SIZE> basis<double, SIZE>(){
+                std::array<element<double, SIZE>, SIZE> _basis;
+// TODO #: implement this!
+                return _basis;
+            }
         }
     }
 }
