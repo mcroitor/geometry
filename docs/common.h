@@ -49,34 +49,14 @@ namespace mc {
                     return scalar(index);
                 }
 
-                virtual element_type operator+=(const element_type&) = 0;
-                virtual element_type operator*=(const TYPE&) = 0;
-                virtual element_type operator-(int) const = 0;
+            friend element_type operator+(const element_type& left, const element_type& right);
+            friend element_type operator*(const element_type& left, TYPE right);
+            friend element_type operator*(TYPE left, const element_type& right);
                 
             protected:
                 std::array<TYPE, SIZE> scalars;
             };
 
-            template<typename TYPE, size_t SIZE>
-            element<TYPE, SIZE> operator+(const element<TYPE, SIZE>& left, const element<TYPE, SIZE>& right) {
-                element<TYPE, SIZE> tmp = left;
-                left += right;
-                return left;
-            }
-
-            template<typename TYPE, size_t SIZE>
-            element<TYPE, SIZE> operator*(const element<TYPE, SIZE>& left, TYPE right) {
-                element<TYPE, SIZE> tmp = left;
-                left *= right;
-                return left;
-            }
-
-            template<typename TYPE, size_t SIZE>
-            element<TYPE, SIZE> operator*(TYPE left, const element<TYPE, SIZE>& right) {
-                element<TYPE, SIZE> tmp = right;
-                right *= left;
-                return right;
-            }
             /**
              * common test of operations need:
              * 1) A + B = B + A
